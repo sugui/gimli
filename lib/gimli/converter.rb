@@ -19,7 +19,7 @@ module Gimli
     # @param [String] output_filename
     # @param [String] output_dir
     # @param [String] stylesheet
-    def initialize(files, merge = false, pagenumbers = false, remove_front_matter = false, output_filename = nil, output_dir = nil, stylesheet = nil)
+    def initialize(files, merge = false, page_width = 0, page_height = 0, pagenumbers = false, remove_front_matter = false, output_filename = nil, output_dir = nil, stylesheet = nil)
       @files = files
       @merge = merge
       @pagenumbers = pagenumbers
@@ -27,6 +27,8 @@ module Gimli
       @output_filename = output_filename
       @output_dir = output_dir
       @stylesheet = stylesheet
+      @page_width = page_width
+      @page_height = page_height
     end
 
     # Convert the file and save it as a PDF file
@@ -67,6 +69,7 @@ module Gimli
     def pdf_kit(html)
       options = {}
       options.merge!({ :footer_right => '[page]/[toPage]' }) if @pagenumbers
+      options.merge!({ :page_width => @page_width, :page_height => @page_height  }) if @page_width != 0 && @page_height != 0
       kit = PDFKit.new(html, options)
 
       load_stylesheets kit

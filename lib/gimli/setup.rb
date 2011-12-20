@@ -32,6 +32,14 @@ module Gimli extend OptiFlagSet
     description 'Print the page numbers in the lower right corner of all pages in pdf'
     alternate_forms 'p'
   end
+  optional_flag 'pagewidth' do
+    description 'Page Width'
+    alternate_forms 'pw'
+  end
+  optional_flag 'pageheight' do
+    description 'Page Height'
+    alternate_forms 'ph'
+  end
   optional_switch_flag 'removefrontmatter' do
     description 'Remove yaml frontmatter from your files.'
     alternate_forms 'y'
