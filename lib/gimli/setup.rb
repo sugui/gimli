@@ -44,6 +44,10 @@ module Gimli extend OptiFlagSet
     description 'Remove yaml frontmatter from your files.'
     alternate_forms 'y'
   end
+  optional_switch_flag 'verbose' do
+    description 'Verbose mode.'
+    alternate_forms 'v'
+  end
   optional_switch_flag 'version' do
     description 'Show version information and quit'
     alternate_forms 'v'

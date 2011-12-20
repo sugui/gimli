@@ -28,7 +28,7 @@ module Gimli
     # @param [Gimli::File] file  The Gimli::File to process
     # @param [Boolean] do_remove_yaml_front_matter Should we remove the front matter?
     # @return [Gimli::Markup]
-    def initialize(file, do_remove_yaml_front_matter = false)
+    def initialize(file, do_remove_yaml_front_matter = false, verbose = false)
       @filename = file.filename
       @name = file.name
       @data = file.data
@@ -37,6 +37,7 @@ module Gimli
       @codemap = {}
       @premap = {}
       @do_remove_yaml_front_matter = do_remove_yaml_front_matter
+      @verbose = verbose
     end
 
     # Render the content with Gollum wiki syntax on top of the file's own
@@ -65,6 +66,7 @@ module Gimli
       data = doc_to_html(doc)
 
       data.gsub!(/<p><\/p>/, '')
+      puts data.to_s if @verbose
       data
     end
 

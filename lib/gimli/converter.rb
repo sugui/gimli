@@ -19,7 +19,7 @@ module Gimli
     # @param [String] output_filename
     # @param [String] output_dir
     # @param [String] stylesheet
-    def initialize(files, merge = false, page_width = 0, page_height = 0, pagenumbers = false, remove_front_matter = false, output_filename = nil, output_dir = nil, stylesheet = nil)
+    def initialize(files, merge = false, page_width = 0, page_height = 0, pagenumbers = false, remove_front_matter = false, output_filename = nil, output_dir = nil, stylesheet = nil, verbose = false)
       @files = files
       @merge = merge
       @pagenumbers = pagenumbers
@@ -29,13 +29,14 @@ module Gimli
       @stylesheet = stylesheet
       @page_width = page_width
       @page_height = page_height
+      @verbose = verbose
     end
 
     # Convert the file and save it as a PDF file
     def convert!
       merged_contents = []
       @files.each do |file|
-        markup = Markup.new file, @remove_front_matter
+        markup = Markup.new file, @remove_front_matter, @verbose
         html = convert_image_urls markup.render, file.filename
         if @merge
           html = "<div class=\"page-break\"></div>#{html}" unless merged_contents.empty?
